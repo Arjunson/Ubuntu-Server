@@ -33,7 +33,7 @@ export default function MetricCard({ title, value, details, icon }: MetricCardPr
   }
 
   // Circular progress SVG variables
-  const radius = 40;
+  const radius = 36;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (Math.min(100, Math.max(0, value)) / 100) * circumference;
 
