@@ -14,6 +14,7 @@ export interface DetailedSystemInfo {
   currentUser: string;
   uptime: number;
   ipAddress: string;
+  kernel: string;
   memory: {
     total: number;
     used: number;

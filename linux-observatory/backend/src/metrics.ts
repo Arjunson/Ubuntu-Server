@@ -13,6 +13,7 @@ export interface DetailedSystemInfo extends SystemMetrics {
   currentUser: string;
   uptime: number;       // seconds
   ipAddress: string;
+  kernel: string;
   memory: {
     total: number;      // bytes
     used: number;       // bytes
@@ -110,6 +111,7 @@ export async function getDetailedSystemInfo(): Promise<DetailedSystemInfo> {
     currentUser,
     uptime,
     ipAddress,
+    kernel: `${os.type()} ${os.release()}`,
     memory: {
       total: totalMem,
       used: usedMem,

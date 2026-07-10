@@ -78,6 +78,7 @@ async function getDetailedSystemInfo() {
         currentUser,
         uptime,
         ipAddress,
+        kernel: `${os_1.default.type()} ${os_1.default.release()}`,
         memory: {
             total: totalMem,
             used: usedMem,

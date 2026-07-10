@@ -225,8 +225,8 @@ export default function Dashboard() {
           </div>
           <div>
             <p className="text-2xs font-medium text-zinc-500 uppercase tracking-wider">Kernel Info</p>
-            <p className="mt-1 text-sm font-semibold text-zinc-200">
-              Linux 6.x
+            <p className="mt-1 text-sm font-semibold text-zinc-200 truncate max-w-[150px]" title={systemInfo ? systemInfo.kernel : ''}>
+              {systemInfo ? systemInfo.kernel : '---'}
             </p>
           </div>
         </div>
