@@ -7,7 +7,7 @@ import MetricCharts from './MetricCharts';
 import ProcessList from './ProcessList';
 import AlertPanel from './AlertPanel';
 
-const BACKEND_URL = 'http://localhost:3001';
+const BACKEND_URL = 'http://192.168.29.192:3001';
 
 export default function Dashboard() {
   const [systemInfo, setSystemInfo] = useState<DetailedSystemInfo | null>(null);
