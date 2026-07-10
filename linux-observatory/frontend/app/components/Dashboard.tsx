@@ -7,7 +7,15 @@ import MetricCharts from './MetricCharts';
 import ProcessList from './ProcessList';
 import AlertPanel from './AlertPanel';
 
-const BACKEND_URL = 'http://192.168.29.192:3001';
+const getBackendUrl = (): string => {
+  if (process.env.NEXT_PUBLIC_API_URL) {
+    return process.env.NEXT_PUBLIC_API_URL;
+  }
+  if (typeof window !== 'undefined') {
+    return `${window.location.protocol}//${window.location.hostname}:3001`;
+  }
+  return 'http://localhost:3001';
+};
 
 export default function Dashboard() {
   const [systemInfo, setSystemInfo] = useState<DetailedSystemInfo | null>(null);
@@ -21,9 +29,9 @@ export default function Dashboard() {
     async function fetchInitialData() {
       try {
         const [infoRes, historyRes, alertsRes] = await Promise.all([
-          fetch(`${BACKEND_URL}/api/system-info`),
-          fetch(`${BACKEND_URL}/api/metrics/history`),
-          fetch(`${BACKEND_URL}/api/alerts`),
+          fetch(`${getBackendUrl()}/api/system-info`),
+          fetch(`${getBackendUrl()}/api/metrics/history`),
+          fetch(`${getBackendUrl()}/api/alerts`),
         ]);
 
         if (!infoRes.ok || !historyRes.ok || !alertsRes.ok) {
@@ -49,7 +57,7 @@ export default function Dashboard() {
 
   // Connect to SSE stream
   useEffect(() => {
-    const eventSource = new EventSource(`${BACKEND_URL}/api/stream`);
+    const eventSource = new EventSource(`${getBackendUrl()}/api/stream`);
 
     eventSource.onopen = () => {
       setIsConnected(true);
@@ -113,7 +121,7 @@ export default function Dashboard() {
   // Handle alert manual resolution
   const handleResolveAlert = async (id: number) => {
     try {
-      const res = await fetch(`${BACKEND_URL}/api/alerts/resolve/${id}`, {
+      const res = await fetch(`${getBackendUrl()}/api/alerts/resolve/${id}`, {
         method: 'POST',
       });
       if (res.ok) {
